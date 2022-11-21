@@ -2,10 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const copyPlugin = require("copy-webpack-plugin");
-const cssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const terserPlugin = require("terser-webpack-plugin");
 const dotEnv = require("dotenv-webpack");
-// const { cleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -13,8 +10,9 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].[contenthash].js",
     assetModuleFilename: "assets/images/[hash][ext][query]",
-    clean: true,
   },
+  mode: "development",
+  watch: true,
   resolve: {
     extensions: [".js"],
     alias: {
@@ -75,10 +73,5 @@ module.exports = {
       ],
     }),
     new dotEnv(),
-    // new cleanWebpackPlugin(),
   ],
-  optimization: {
-    minimize: true,
-    minimizer: [new cssMinimizerPlugin(), new terserPlugin()],
-  },
 };
